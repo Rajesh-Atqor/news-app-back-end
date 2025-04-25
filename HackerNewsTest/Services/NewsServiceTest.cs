@@ -1,9 +1,9 @@
-﻿using HackerNews.Constants;
-using HackerNews.Interfaces;
-using HackerNews.Models;
-using HackerNews.Models.Dtos;
-using HackerNews.Models.ViewModels;
-using HackerNews.Services;
+﻿using HackerNews.Business.Constants;
+using HackerNews.Business.Interfaces;
+using HackerNews.Business.Models;
+using HackerNews.Business.Models.Dtos;
+using HackerNews.Business.Models.ViewModels;
+using HackerNews.Business.Services;
 using Microsoft.Extensions.Options;
 using Moq;
 using RichardSzalay.MockHttp;
@@ -56,7 +56,7 @@ namespace HackerNewsTest.Services
 
             _mockCache.Setup(c => c.GetCache(CommonConstants.NewStoriesCacheKey)).Returns(stories);
 
-            var result = await _newsService.GetNewStories(new GetNewStoriesRequestDto
+            var result = await _newsService.GetNewStories(new NewStoriesRequestDto
             {
                 PageNumber = 1,
                 PageSize = 10,
@@ -76,7 +76,7 @@ namespace HackerNewsTest.Services
 
             _mockCache.Setup(c => c.GetCache(CommonConstants.NewStoriesCacheKey)).Returns(stories);
 
-            var result = await _newsService.GetNewStories(new GetNewStoriesRequestDto
+            var result = await _newsService.GetNewStories(new NewStoriesRequestDto
             {
                 PageNumber = 2,
                 PageSize = 5
@@ -98,7 +98,7 @@ namespace HackerNewsTest.Services
 
             _mockCache.Setup(c => c.GetCache(CommonConstants.NewStoriesCacheKey)).Returns(stories);
 
-            var result = await _newsService.GetNewStories(new GetNewStoriesRequestDto
+            var result = await _newsService.GetNewStories(new NewStoriesRequestDto
             {
                 PageNumber = 1,
                 PageSize = 10,
@@ -119,7 +119,7 @@ namespace HackerNewsTest.Services
 
             _mockCache.Setup(c => c.GetCache(CommonConstants.NewStoriesCacheKey)).Returns(stories);
 
-            var result = await _newsService.GetNewStories(new GetNewStoriesRequestDto
+            var result = await _newsService.GetNewStories(new NewStoriesRequestDto
             {
                 PageNumber = 1,
                 PageSize = 10
@@ -135,7 +135,7 @@ namespace HackerNewsTest.Services
         {
             _mockCache.Setup(c => c.GetCache(CommonConstants.NewStoriesCacheKey)).Returns(null);
 
-            var result = await _newsService.GetNewStories(new GetNewStoriesRequestDto
+            var result = await _newsService.GetNewStories(new NewStoriesRequestDto
             {
                 PageNumber = 1,
                 PageSize = 10

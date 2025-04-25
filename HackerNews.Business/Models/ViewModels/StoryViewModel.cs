@@ -1,4 +1,4 @@
-﻿namespace HackerNews.Models.ViewModels
+﻿namespace HackerNews.Business.Models.ViewModels
 {
     public class StoryViewModel
     {

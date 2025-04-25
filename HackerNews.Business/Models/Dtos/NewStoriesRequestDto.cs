@@ -1,6 +1,6 @@
-﻿namespace HackerNews.Models.Dtos
+﻿namespace HackerNews.Business.Models.Dtos
 {
-    public class GetNewStoriesRequestDto
+    public class NewStoriesRequestDto
     {
         public string? SearchTerm { get; set; }
         public int PageNumber { get; set; } = 1; // Default to the first page

@@ -1,6 +1,7 @@
-using HackerNews.Interfaces;
-using HackerNews.Models;
-using HackerNews.Services;
+using HackerNews.Business.Interfaces;
+using HackerNews.Business.Models;
+using HackerNews.Business.Services;
+using HackerNews.Middlewares;
 using Microsoft.AspNetCore.RateLimiting;
 using System.Threading.RateLimiting;
 
@@ -49,6 +50,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ErrorHandler>();
 //app.UseCors("AllowAll");
 app.UseHttpsRedirection();
 

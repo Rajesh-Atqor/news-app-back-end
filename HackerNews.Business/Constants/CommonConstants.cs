@@ -1,4 +1,4 @@
-﻿namespace HackerNews.Constants
+﻿namespace HackerNews.Business.Constants
 {
     public static class CommonConstants
     {

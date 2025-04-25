@@ -1,8 +1,6 @@
-﻿
-using Moq;
+﻿using Moq;
 using Microsoft.Extensions.Caching.Memory;
-using HackerNews.Services;
-
+using HackerNews.Business.Services;
 
 namespace HackerNewsTest.Services
 {

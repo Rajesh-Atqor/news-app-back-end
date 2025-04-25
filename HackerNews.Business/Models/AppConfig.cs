@@ -1,4 +1,4 @@
-﻿namespace HackerNews.Models
+﻿namespace HackerNews.Business.Models
 {
     public class AppConfig
     {

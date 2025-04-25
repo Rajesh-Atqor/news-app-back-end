@@ -1,8 +1,8 @@
-﻿using HackerNews.Controllers;
-using HackerNews.Interfaces;
-using HackerNews.Models;
-using HackerNews.Models.Dtos;
-using HackerNews.Models.ViewModels;
+﻿using HackerNews.Business.Interfaces;
+using HackerNews.Business.Models;
+using HackerNews.Business.Models.Dtos;
+using HackerNews.Business.Models.ViewModels;
+using HackerNews.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 
@@ -23,7 +23,7 @@ namespace HackerNewsTest.Controllers
         public async Task GetNewStories_ReturnsOkResult_WithValidData()
         {
             
-            var request = new GetNewStoriesRequestDto
+            var request = new NewStoriesRequestDto
             {
                 SearchTerm = "test",
                 PageNumber = 1,
@@ -55,7 +55,7 @@ namespace HackerNewsTest.Controllers
         public async Task GetNewStories_ReturnsBadRequest_WhenRequestIsInvalid()
         {
             
-            GetNewStoriesRequestDto request = null;
+            NewStoriesRequestDto request = null;
 
             _controller.ModelState.AddModelError("SearchTerm", "Required");
 
@@ -70,7 +70,7 @@ namespace HackerNewsTest.Controllers
         public async Task GetNewStories_ReturnsEmptyResult_WhenNoStoriesFound()
         {
             
-            var request = new GetNewStoriesRequestDto
+            var request = new NewStoriesRequestDto
             {
                 SearchTerm = "nonexistent",
                 PageNumber = 1,
@@ -93,6 +93,29 @@ namespace HackerNewsTest.Controllers
             var returnValue = Assert.IsType<PagedResult<StoryViewModel>>(okResult.Value);
             Assert.Empty(returnValue.Items);
             Assert.Equal(0, returnValue.TotalCount);
+        }
+
+        [Fact]
+        public async Task GetNewStories_WhenExceptionThrown_IsCaughtByMiddleware()
+        {
+
+            var request = new NewStoriesRequestDto
+            {
+                SearchTerm = "nonexistent",
+                PageNumber = 1,
+                PageSize = 10
+            };
+
+            var mockService = new Mock<INewsService>();
+
+            mockService
+                .Setup(s => s.GetNewStories(request))
+                .ThrowsAsync(new Exception("An unexpected error occurred"));
+
+            var controller = new NewsController(mockService.Object);
+
+            await Assert.ThrowsAsync<Exception>(() => controller.GetNewStories(request));
+
         }
     }
 }
